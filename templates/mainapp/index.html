@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <style>
+        .content {
+            background-image: url({% static 'image/p.png' %});
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

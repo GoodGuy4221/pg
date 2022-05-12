@@ -1,0 +1,44 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"></use>
+        </svg>
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        {% include 'includes/include__list_item_main_menu.html' %}
+    </ul>
+
+    <div class="col-md-3 text-end">
+        {% if user.is_authenticated %}
+            <img class="avatar" src="{% if user.photo %}{{ user.photo.url }}{% else %}
+        {{ media_url|add:'base.jpg' }}{% endif %}" alt="{{ user.user_name }}">&ensp;
+            <a href="{% url 'passport:edit' user.pk %}" type="button"
+               class="btn btn-outline-primary me-2">{{ user.user_name|default:'пользователь'|capfirst }}</a>
+            <a href="{% url 'passport:logout' %}" type="button" class="btn btn-outline-primary me-2">Logout</a>
+        {% else %}
+            <span>Anonymous&ensp;</span>
+            <a href="{% url 'passport:login' %}" type="button" class="btn btn-outline-primary me-2">Login</a>
+            <a href="{% url 'passport:signup' %}" type="button" class="btn btn-primary">Sign-up</a>
+        {% endif %}
+    </div>
+</header>
+
+
+{#<nav>#}
+{#    <ul class="main-menu">#}
+{#        <li><p><a href="{% url 'mainapp:mainpage' %}">на главную</a></p></li>#}
+{#        {% if user.is_authenticated %}#}
+{#            <li><p>{{ user.user_name|default:'Пользователь' }}#}
+{#                <img class="avatar" src="{% if user.photo %}{{ user.photo.url }}{% else %}#}
+{#        {{ media_url|add:'base.jpg' }}{% endif %}" alt="user.user_name"></p></li>#}
+{##}
+{#            <li><p><a href="{% url 'passport:edit' user.pk %}">Редактировать профиль</a></p></li>#}
+{#            <li><p><a href="{% url 'passport:logout' %}">logout</a></p></li>#}
+{#        {% else %}#}
+{#            <li><p>{{ 'Anonymous' }}</p></li>#}
+{#            <li><p><a href="{% url 'passport:login' %}">login</a></p></li>#}
+{#            <li><p><a href="{% url 'passport:signup' %}">signup</a></p></li>#}
+{#        {% endif %}#}
+{#    </ul>#}
+{#</nav>#}

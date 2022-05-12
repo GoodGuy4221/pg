@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-round form-control" type="submit" value="Login">
+    </form>
+    <br>
+    <div class="social">
+        <p>или продолжить через</p>
+        <div class="social-items">
+            <a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'mainapp:mainpage' %}">
+                <img src="{% static 'image/social/google_social.svg' %}" alt="google_social">
+            </a>&nbsp;
+            <a href="{% url 'social:begin' 'vk-oauth2' %}?next={% url 'mainapp:mainpage' %}">
+                <img src="{% static 'image/social/vk_social.svg' %}" alt="vk_social">
+            </a>&nbsp;
+            <a href="{% url 'social:begin' 'github' %}?next={% url 'mainapp:mainpage' %}">
+                <img src="{% static 'image/social/github_social.svg' %}" alt="github_social">
+            </a>&nbsp;
+            <a href="{% url 'social:begin' 'odnoklassniki' %}?next={% url 'mainapp:mainpage' %}">
+                <img src="{% static 'image/social/ok_social.svg' %}" alt="ok_social">
+            </a>
+        </div>
+    </div>
+{% endblock %}

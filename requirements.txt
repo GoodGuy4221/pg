@@ -1,0 +1,15 @@
+Django
+djangorestframework
+markdown
+django-filter
+Pillow
+django-cors-headers
+djangorestframework-camel-case
+mixer
+djangorestframework-simplejwt
+drf-yasg
+wheel
+graphene-django
+psycopg2-binary
+coverage
+social-auth-app-django

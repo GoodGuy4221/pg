@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="icon" type="image/svg" href="{% static 'image/favicon/icon.svg' %}" sizes="192x192">
+
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <style>
+            body {
+                background: linear-gradient(45deg, #fff1eb, #ace0f9);
+            }
+
+            .main-menu {
+                list-style-type: none;
+            }
+
+            li {
+                list-style-type: none;
+            }
+
+            .success {
+                color: #198754;
+            }
+
+            .info {
+                color: #0b5ed7;
+            }
+
+            .warning {
+                color: #ffc107;
+            }
+
+            .error {
+                color: darkred;
+            }
+        </style>
+    {% endblock %}
+
+    <title>{% block title %}{{ page_title|capfirst }}{% endblock %}</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="container">
+            {% block main_menu %}
+                {% include 'includes/include__main-menu.html' %}
+            {% endblock %}
+
+            {% block messages %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|upper }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
+
+            {% block content %}
+                <h1 style="color: #bb2d3b;">this is the base page, this block needs to be reassigned!</h1>
+            {% endblock %}
+        </div>
+    </div>
+    {% include 'includes/include__footer.html' %}
+</div>
+</body>
+</html>

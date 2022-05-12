@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title|capfirst }}{% endblock %}
+
+{% block content %}
+    <form class="form-horizontal" action="{% url 'passport:edit' user.pk %}" method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form2.as_p }}
+        <input class="form-control" type="submit" value="сохранить">
+    </form>
+    <a href="{% url 'passport:editpass' user.pk %}">изменить пароль</a>
+    <a href="{% url 'passport:delete' user.pk %}">удалить аккаунт</a>
+    <a href="{{ request.META.HTTP_REFERER }}">на предыдущую страницу</a>
+{% endblock %}

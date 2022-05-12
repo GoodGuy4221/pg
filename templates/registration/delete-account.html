@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <form class="form-horizontal" action="{% url 'passport:delete' user.pk %}" method="post">
+        {% csrf_token %}
+        <p>{{ warning_message }}</p>
+        <input class="form-control" type="submit" value="удалить">
+    </form>
+    <a href="{% url 'mainapp:mainpage' %}">отмена</a>
+{% endblock %}

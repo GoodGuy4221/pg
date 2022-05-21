@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for item in object_list %}
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.body|truncatechars:50 }}</p>
+        <span>{{ item.created_at }} #{{ item.topic.name }}</span><br>
+        <a href="#">Читать</a>
+    {% endfor %}
+{% endblock %}

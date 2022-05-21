@@ -14,6 +14,9 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from pathlib import Path
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .forms import (AuthenticationCustomUserForm, RegisterCustomUserForm, UpdateCustomUserForm,
                     PasswordChangeCustomUserForm,
@@ -80,9 +83,48 @@ class Verify(SetPageTitleMixin, MessageAttributesAuthMixin, SuccessMessageMixin,
             return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 
-class EditProfile(SetPageTitleMixin, SuccessMessageMixin, UpdateView):
+# class EditProfile(SetPageTitleMixin, SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+#     page_title = 'редактирование профиля'
+#     model = get_user_model()
+#     form_class = UpdateCustomUserForm
+#     second_form_class = UpdateProfileCustomUserForm
+#     template_name = Path('registration', 'edit.html')
+#     success_message = _('данные успешно обновлены!')
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['form2'] = self.second_form_class(instance=self.request.user.profile)
+#         return context
+#
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(instance=request.user, data=request.POST, files=request.FILES)
+#         form2 = self.second_form_class(instance=request.user.profile, data=request.POST)
+#
+#         if self.forms_valid(form, form2):
+#             form.save()
+#             return HttpResponseRedirect(self.get_success_url())
+#         else:
+#             return self.render_to_response(
+#                 self.get_context_data(form=form, form2=form2))
+#
+#     def forms_valid(self, form, form2):
+#         response = super().form_valid(form)
+#         if form2.is_valid():
+#             return response
+#         return False
+#
+#     def get_success_url(self):
+#         return self.request.META.get('HTTP_REFERER')
+#
+#     def get_success_message(self, cleaned_data):
+#         return self.success_message
+#
+#     def get_form(self, form_class=None):
+#         return self.form_class(instance=self.request.user)
+
+
+class EditProfile(SetPageTitleMixin, SuccessMessageMixin, LoginRequiredMixin, FormView):
     page_title = 'редактирование профиля'
-    model = get_user_model()
     form_class = UpdateCustomUserForm
     second_form_class = UpdateProfileCustomUserForm
     template_name = Path('registration', 'edit.html')
@@ -115,6 +157,9 @@ class EditProfile(SetPageTitleMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_message(self, cleaned_data):
         return self.success_message
+
+    def get_form(self, form_class=None):
+        return self.form_class(instance=self.request.user)
 
 
 class EditPassword(LoginRequiredMixin, PasswordChangeView):

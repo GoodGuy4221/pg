@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include 'transactions/includes/include__menu.html' %}
+    <br>
+    <table class="table">
+        <caption>{{ page_title|upper }}</caption>
+        <thead>
+        <tr>
+            {% include 'transactions/includes/include__list_columns.html' %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in object_list %}
+            <tr class="table-{{ item.get_transaction_status_line }}">
+                <td>{{ item.name_asset }}</td>
+                <td>{{ item.ticker }}</td>
+                <td>{{ item.get_fill_purchase_price }}</td>
+                <td>{{ item.get_full_sale_price }}</td>
+                <td>{{ item.get_transaction_status }}</td>
+                <td>{{ item.get_percentage }}</td>
+                <td><a href="{% url 'transactions:detail' item.pk %}"><img
+                        src="{% static 'image/icons/more_icon.png' %}" alt="#"></a></td>
+                <td><a href="{% url 'transactions:edit' item.pk %}"><img src="{% static 'image/icons/edit_icon.png' %}" alt="#"></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

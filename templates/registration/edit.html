@@ -4,7 +4,7 @@
 {% block title %}{{ page_title|capfirst }}{% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" action="{% url 'passport:edit' user.pk %}" method="post"
+    <form class="form-horizontal" action="{% url 'passport:edit' %}" method="post"
           enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

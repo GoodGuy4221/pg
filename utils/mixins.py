@@ -23,3 +23,22 @@ class MessageAttributesAuthMixin:
     success_send_email_messages = _(f'email со ссылкой активации успешно отправлен!')
     error_activation = _(f'ключ активации не подошел или такого пользователя нет!')
     success_activation = _(f'активация прошла успешно!')
+
+
+class AccessOnlyOwnerObjectMixin:
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if self.request.user.pk == self.object.user.pk:
+            return response
+        return self.handle_no_permission()
+
+
+class IsActiveFalseMixin:
+    def delete(self, using=None, keep_parents=False):
+        if self.is_active:
+            self.is_active = False
+            self.save()
+
+
+class PaginateMixin:
+    paginate_by = 12

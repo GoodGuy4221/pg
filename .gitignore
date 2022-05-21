@@ -1,7 +1,6 @@
-venv
 commands.txt
 env.json
-venv-pg/
+venv_pg/
 .idea/
 
 

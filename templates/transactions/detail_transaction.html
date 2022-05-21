@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include 'transactions/includes/include__menu.html' %}
+    <button><a href="{% url 'transactions:edit' object.pk %}"><img src="{% static 'image/icons/edit_icon.png' %}" alt="#"></a>
+    </button>
+    <br>
+    <table class="table-{{ object.get_transaction_status_line }}">
+        <caption>{{ object.name_asset|upper }}</caption>
+        <tbody>
+        <tr>
+            <td><span>Название</span></td>
+            <td>{{ object.name_asset }}</td>
+        </tr>
+        <tr>
+            <td><span>Тикер</span></td>
+            <td>{{ object.ticker }}</td>
+        </tr>
+        <tr>
+            <td><span>Цена покупки в рублях за 1 ед.</span></td>
+            <td>{{ object.purchase_price }}</td>
+        </tr>
+        <tr>
+            <td><span>Цена продажи в рублях за 1 ед.</span></td>
+            <td>{{ object.sale_price }}</td>
+        </tr>
+        <tr>
+            <td><span>Количество ед.</span></td>
+            <td>{{ object.quantity }}</td>
+        </tr>
+        <tr>
+            <td><span>Тип сделки</span></td>
+            <td>{{ object.get_type_transaction_display }}</td>
+        </tr>
+        <tr>
+            <td><span>Тип инструмента</span></td>
+            <td>{{ object.get_tool_type_display }}</td>
+        </tr>
+        <tr>
+            <td><span>% налог на прибыль</span></td>
+            <td>{{ object.tax }}</td>
+        </tr>
+        <tr>
+            <td><span>Комиссия брокера и биржи %</span></td>
+            <td>{{ object.broker_exchange_commission_percentage }}</td>
+        </tr>
+        <tr>
+            <td><span>Описание сделки</span></td>
+            <td>{{ object.description }}</td>
+        </tr>
+        <tr>
+            <td><span>Дата создания записи</span></td>
+            <td>{{ object.created_at }}</td>
+        </tr>
+        <tr>
+            <td><span>Дата редактирования записи</span></td>
+            <td>{{ object.updated_at }}</td>
+        </tr>
+        <tr>
+            <td><span>Активна</span></td>
+            <td>{{ object.is_active }}</td>
+        </tr>
+        <tr>
+            <td><span>Общая цена покупки</span></td>
+            <td>{{ object.get_fill_purchase_price }}</td>
+        </tr>
+        <tr>
+            <td><span>Общая цена продажи</span></td>
+            <td>{{ object.get_full_sale_price }}</td>
+        </tr>
+        <tr>
+            <td><span>Статус</span></td>
+            <td>{{ object.get_transaction_status }}</td>
+        </tr>
+        <tr>
+            <td><span>% разницы от суммы покупки и продажи</span></td>
+            <td>{{ object.get_percentage }}</td>
+        </tr>
+        <tr>
+            <td><span>Грязная прибыль</span></td>
+            <td>{{ object.get_dirty_profit_deal }}</td>
+        </tr>
+        <tr>
+            <td><span>Сумма налога</span></td>
+            <td>{{ object.get_tax_amount }}</td>
+        </tr>
+        <tr>
+            <td><span>Размер комиссии при покупке</span></td>
+            <td>{{ object.get_commission_amount_purchase }}</td>
+        </tr>
+        <tr>
+            <td><span>Размер комиссии при продаже</span></td>
+            <td>{{ object.get_commission_amount_sale }}</td>
+        </tr>
+        <tr>
+            <td><span>Размер чистой прибыли</span></td>
+            <td>{{ object.get_clean_profit }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

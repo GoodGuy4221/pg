@@ -15,7 +15,8 @@
 
         <style>
             body {
-                background: linear-gradient(45deg, #fff1eb, #ace0f9);
+                background-image: url("{% static 'image/background/solid-woodpane-2.png' %}");
+                background-repeat: repeat;
             }
 
             .main-menu {
@@ -67,6 +68,33 @@
             {% block content %}
                 <h1 style="color: #bb2d3b;">this is the base page, this block needs to be reassigned!</h1>
             {% endblock %}
+
+            {% block paginator %}
+                {% if page_obj.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ 1 }}">В начало</a></li>
+                            {% endif %}
+                            {% for p in page_obj.paginator.page_range %}
+                                {% if page_obj.number == p %}
+                                    <li class="page-item"><span class="page-link" style="background-color: #badce3;"
+                                                                aria-label="Текущая страница {{ p }}">{{ p }}</span>
+                                    </li>
+                                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ p }}">{{ p }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">дальше</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% endblock %}
+
         </div>
     </div>
     {% include 'includes/include__footer.html' %}

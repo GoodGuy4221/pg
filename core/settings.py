@@ -45,9 +45,10 @@ INSTALLED_APPS = [
 
     'social_django.apps.PythonSocialAuthConfig',
 
-    'userapp',
-    'mainapp',
-    'transactions',
+    'userapp.apps.UserappConfig',
+    'mainapp.apps.MainappConfig',
+    'transactions.apps.TransactionsConfig',
+    'articlesapp.apps.ArticlesappConfig',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +149,7 @@ MEDIA_ROOT = Path(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = 'passport:login'
 LOGIN_REDIRECT_URL = 'passport:login'
 LOGOUT_REDIRECT_URL = 'mainapp:mainpage'
 

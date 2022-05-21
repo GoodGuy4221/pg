@@ -13,7 +13,7 @@
         {% if user.is_authenticated %}
             <img class="avatar" src="{% if user.photo %}{{ user.photo.url }}{% else %}
         {{ media_url|add:'base.jpg' }}{% endif %}" alt="{{ user.user_name }}">&ensp;
-            <a href="{% url 'passport:edit' user.pk %}" type="button"
+            <a href="{% url 'passport:edit' %}" type="button"
                class="btn btn-outline-primary me-2">{{ user.user_name|default:'пользователь'|capfirst }}</a>
             <a href="{% url 'passport:logout' %}" type="button" class="btn btn-outline-primary me-2">Logout</a>
         {% else %}

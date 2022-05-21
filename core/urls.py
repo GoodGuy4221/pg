@@ -24,7 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('passport/', include('userapp.urls', namespace='passport')),
+    path('transactions/', include('transactions.urls', namespace='transactions')),
     path('', include('mainapp.urls', namespace='mainapp')),
+
+    path('articles/', include('articlesapp.urls', namespace='articles')),
 
     path('social/', include('social_django.urls', namespace='social')),
 ]

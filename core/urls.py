@@ -18,9 +18,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework.routers import DefaultRouter, SimpleRouter
+
 from mainapp.views import PageNotFound
+from tasksapp.views import ConverterStringViewSet
+
+router = DefaultRouter()
+router.register('string', ConverterStringViewSet)
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(router.urls)),
+
     path('admin/', admin.site.urls),
 
     path('passport/', include('userapp.urls', namespace='passport')),

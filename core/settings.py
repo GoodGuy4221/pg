@@ -44,11 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django.apps.PythonSocialAuthConfig',
+    'rest_framework',
 
     'userapp.apps.UserappConfig',
     'mainapp.apps.MainappConfig',
     'transactions.apps.TransactionsConfig',
     'articlesapp.apps.ArticlesappConfig',
+
+    'tasksapp.apps.TasksappConfig',
 ]
 
 MIDDLEWARE = [
@@ -232,3 +235,15 @@ SOCIAL_AUTH_PIPELINE = (
 
     'userapp.pipeline.save_user_profile',
 )
+
+# REST_FRAMEWORK
+CORS_ALLOWED_ORIGINS = [
+    '*',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}

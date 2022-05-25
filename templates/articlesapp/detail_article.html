@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>{{ object.title }}</h3>
+    {% if object.image %}
+        <img src="{{ object.image.url }}" alt="#">
+    {% endif %}
+    <p>{{ object.body }}</p>
+    <span>{{ object.created_at }} #{{ object.topic.name }}</span>
+{% endblock %}

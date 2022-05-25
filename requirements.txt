@@ -1,12 +1,12 @@
-Django
-djangorestframework
+Django==4.0.4
+djangorestframework==3.13.1
 markdown
 django-filter
 Pillow
 django-cors-headers
 djangorestframework-camel-case
 mixer
-djangorestframework-simplejwt
+djangorestframework-simplejwt==5.2.0
 drf-yasg
 wheel
 graphene-django

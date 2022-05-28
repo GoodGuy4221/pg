@@ -27,14 +27,14 @@ from rest_framework_simplejwt.views import (
 )
 
 from mainapp.views import PageNotFound
-from tasksapp.views import ConverterStringViewSet
 
 router = DefaultRouter()
-router.register('strings', ConverterStringViewSet)
+# router.register()
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+    path('api/tasks/', include('tasksapp.urls')),
 
     path('api-token-auth/', views.obtain_auth_token),
 

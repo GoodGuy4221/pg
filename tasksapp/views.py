@@ -13,8 +13,8 @@ from services import character_count_converter_1
 
 
 class CharacterCountConverterAPIView(APIView):
-
-    def get(self, request):
+    @staticmethod
+    def get(request):
         raw_string = request.query_params.get('raw_string', '')
         if raw_string:
             response = ConverterString.objects.filter(raw_string=raw_string)
@@ -32,13 +32,3 @@ class ConverterStringAPIView(ModelViewSet):
     permission_classes = (IsAuthenticated,)
     # будет предоставлять доступ только по ...
     # authentication_classes = (TokenAuthentication,)
-
-    # @staticmethod
-    # def create(validated_data):
-    #     return ConverterString(**validated_data)
-    #
-    # @staticmethod
-    # def update(instance, **validated_data):
-    #     instance.raw_string = validated_data.get('raw_string', instance.raw_string)
-    #     instance.convert_string = validated_data.get('convert_string', instance.convert_string)
-    #     return instance

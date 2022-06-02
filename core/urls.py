@@ -27,14 +27,17 @@ from rest_framework_simplejwt.views import (
 )
 
 from mainapp.views import PageNotFound
+from telegram_bot_app.views import NotesAPIView
 
 router = DefaultRouter()
-# router.register()
+router.register('telegram-bot/notes', NotesAPIView, basename='notes')
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+
     path('api/tasks/', include('tasksapp.urls')),
+    # path('api/telegram-bot/', include('telegram_bot_app.urls')),
 
     path('api-token-auth/', views.obtain_auth_token),
 
@@ -45,12 +48,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('passport/', include('userapp.urls', namespace='passport')),
-    path('transactions/', include('transactions.urls', namespace='transactions')),
+
     path('', include('mainapp.urls', namespace='mainapp')),
 
     path('articles/', include('articlesapp.urls', namespace='articles')),
 
     path('social/', include('social_django.urls', namespace='social')),
+
+    # SSR APP
+    path('transactions/', include('transactions.urls', namespace='transactions')),
+    path('weather/', include('weather_app.urls', namespace='weather')),
 ]
 
 handler404 = PageNotFound.as_view()

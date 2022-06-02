@@ -2,7 +2,7 @@ from django.urls import path
 
 from .apps import TasksappConfig
 
-from tasksapp.views import CharacterCountConverterAPIView
+from .views import CharacterCountConverterAPIView
 
 app_name = TasksappConfig.name
 

@@ -13,3 +13,4 @@ graphene-django
 psycopg2-binary
 coverage
 social-auth-app-django
+requests==2.27.1

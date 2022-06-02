@@ -42,19 +42,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # LIBRARY APP
     'social_django.apps.PythonSocialAuthConfig',
     'rest_framework.apps.RestFrameworkConfig',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-
+    # SSR APP
     'userapp.apps.UserappConfig',
     'mainapp.apps.MainappConfig',
     'transactions.apps.TransactionsConfig',
     'articlesapp.apps.ArticlesappConfig',
-
+    'weather_app.apps.WeatherAppConfig',
+    # REST APP
     'tasksapp.apps.TasksappConfig',
+    'telegram_bot_app',
 ]
 
 MIDDLEWARE = [
@@ -295,3 +297,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+# https://openweathermap.org/
+OPEN_WEATHER_KEY = env.get('OPEN_WEATHER_KEY', '')

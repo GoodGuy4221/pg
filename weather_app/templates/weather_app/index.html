@@ -1,0 +1,30 @@
+{% include 'weather_app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5 offset-1">
+                <h1>{{ title|capfirst }}</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="city">{{ label_text|capfirst }}</label>
+                    {{ form.name }}
+                    <input type="submit" name="send" value="{{ learn|capfirst }}">
+                </form>
+            </div>
+
+            <div class="col-4 offset-1">
+                <h2>{{ page_title }}</h2>
+                {% for item in cities_list %}
+                    <div class="alert alert-info">
+                        <b>Город:</b> {{ item.city }}<br>
+                        <b>Температура:</b> {{ item.temp }}<sup>o</sup><br>
+                        <img class="img-thumbnail" src="http://openweathermap.org/img/w/{{ item.icon }}.png"
+                             alt="#">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

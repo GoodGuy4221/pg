@@ -300,3 +300,6 @@ SIMPLE_JWT = {
 
 # https://openweathermap.org/
 OPEN_WEATHER_KEY = env.get('OPEN_WEATHER_KEY', '')
+
+# CELERY
+CELERY_BROKER_URL = env.get('CELERY_BROKER_URL', '')

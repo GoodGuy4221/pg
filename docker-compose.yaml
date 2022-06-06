@@ -1,0 +1,14 @@
+version: "3.10.4"
+
+services:
+  redis:
+    image: redis
+    restart: always
+
+    pg:
+      restart: always
+      build:
+        context: "."
+      ports:
+        - "8000:8000"
+      command: ["python3", "./pg/manage.py", "runserver", "0.0.0.0:8000"]

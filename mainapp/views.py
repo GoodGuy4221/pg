@@ -3,12 +3,19 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from pathlib import Path
 
+from . import tasks
+
 
 class MainPage(TemplateView):
     template_name = Path('mainapp', 'index.html')
     extra_context = {
         'page_title': 'главная',
     }
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        tasks.download_cat.delay()
+        return response
 
 
 class AboutView(TemplateView):

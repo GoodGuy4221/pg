@@ -14,7 +14,7 @@ class MainPage(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
-        tasks.download_cat.delay()
+        # tasks.download_cat.delay()
         return response
 
 

@@ -33,7 +33,13 @@ SECRET_KEY = 'django-insecure-5b0o_f=h0s-9(oi8on$omc@btffo-df^6itw6a7t$5%sx+9&c7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1',
+    'localhost',
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -162,6 +168,7 @@ MEDIA_ROOT = Path(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'core.custom_auto_field.UID4AutoField'
 
 LOGIN_URL = 'passport:login'
 LOGIN_REDIRECT_URL = 'passport:login'
@@ -250,7 +257,12 @@ SOCIAL_AUTH_PIPELINE = (
 # REST_FRAMEWORK
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1',
 ]
+
+# CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (

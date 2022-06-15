@@ -6,7 +6,7 @@ from .views import ArticlesView, DetailArticleView, WriteArticleView
 app_name = ArticlesappConfig.name
 
 urlpatterns = [
-    path('article/<int:pk>/', DetailArticleView.as_view(), name='detail_article'),
+    path('article/<slug:pk>/', DetailArticleView.as_view(), name='detail_article'),
     path('writearticle/', WriteArticleView.as_view(), name='writearticle'),
     path('', ArticlesView.as_view(), name='index'),
 ]

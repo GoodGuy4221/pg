@@ -11,8 +11,8 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout'),
     path('signup/', Register.as_view(), name='signup'),
     path('edit/', EditProfile.as_view(), name='edit'),
-    path('edit/pass/<int:pk>/', EditPassword.as_view(), name='editpass'),
-    path('edit/delete/<int:pk>/', DeleteAccount.as_view(), name='delete'),
+    path('edit/pass/<uuid:pk>/', EditPassword.as_view(), name='editpass'),
+    path('edit/delete/<uuid:pk>/', DeleteAccount.as_view(), name='delete'),
 
     path('error/', TemplateView.as_view(template_name='registration/error.html'), name='error'),
 

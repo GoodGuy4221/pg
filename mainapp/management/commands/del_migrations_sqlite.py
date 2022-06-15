@@ -1,3 +1,5 @@
+import sys
+
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
@@ -10,9 +12,13 @@ class Command(BaseCommand):
     DO_NOT_DEL = ('__init__.py',)
 
     def handle(self, *args, **options):
-        os.remove(os.path.join(settings.BASE_DIR, 'db.sqlite3'))
+        try:
+            os.remove(os.path.join(settings.BASE_DIR, 'db.sqlite3'))
+        except FileNotFoundError:
+            sys.stdout.write('db.sqlite3 not found\n')
         for root, dirs, files in os.walk(top=settings.BASE_DIR):
             if not root.find('migrations') == -1:
                 for name_file in files:
                     if (name_file not in self.DO_NOT_DEL) and (not any(c.isupper() for c in name_file)):
                         os.remove(os.path.join(root, name_file))
+        sys.stdout.write('Done!\n')

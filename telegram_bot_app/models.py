@@ -2,8 +2,11 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+from uuid import uuid4
+
 
 class Notes(models.Model):
+    uid = models.UUIDField(primary_key=True, default=uuid4)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='notes')
     title = models.CharField(_('Заголовок'), max_length=128)
     body = models.TextField(_('Заметка'))

@@ -4,6 +4,8 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from uuid import uuid4
+
 
 class Transaction(models.Model):
     LONG = 'L'
@@ -25,6 +27,7 @@ class Transaction(models.Model):
     LOSS = 'danger'
     OPEN = 'warning'
 
+    uid = models.UUIDField(primary_key=True, default=uuid4)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     name_asset = models.CharField(_('Название'), max_length=64, db_index=True, blank=True)
     ticker = models.CharField(_('Тикер'), max_length=64, db_index=True)

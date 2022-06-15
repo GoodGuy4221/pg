@@ -14,5 +14,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Articles.objects.all().delete()
         for _ in range(options['q']):
-            mixer.blend(Articles)
+            mixer.blend(Articles, slug=mixer.SKIP, topic__slug=mixer.SKIP)
         self.stdout.write('done!')

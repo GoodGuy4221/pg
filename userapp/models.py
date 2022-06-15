@@ -11,6 +11,7 @@ from django.utils.timezone import now
 from datetime import timedelta
 import hashlib
 import random
+from uuid import uuid4
 
 from utils.utils import user_photo_directory_path
 
@@ -63,6 +64,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
+    uid = models.UUIDField(primary_key=True, default=uuid4)
     email = models.EmailField(_('email address'), unique=True, max_length=64, db_index=True,
                               help_text=_('Required. 64 characters or fewer. Letters, digits and @/./+/-/_ only.'),
                               validators=[],

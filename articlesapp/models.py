@@ -1,26 +1,41 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
 from utils.utils import article_image_directory_path
 from utils.mixins import IsActiveFalseMixin
 
 
-class Topic(IsActiveFalseMixin, models.Model):
-    name = models.CharField(_('название'), unique=True, db_index=True, max_length=64)
+class SaveSlugMixin:
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            string = self.title.translate(str.maketrans(
+                'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
+                'abvgdeejzijklmnoprstufhzcss_y_euaABVGDEEJZIJKLMNOPRSTUFHZCSS_Y_EUA'
+            ))
+            self.slug = slugify(string)
+        return super().save(*args, **kwargs)
+
+
+class Topic(IsActiveFalseMixin, SaveSlugMixin, models.Model):
+    slug = models.SlugField('URL', max_length=255, unique=True, db_index=True, primary_key=True)
+    title = models.CharField(_('название'), unique=True, db_index=True, max_length=64)
     desc = models.TextField(_('описание'), blank=True)
     is_active = models.BooleanField(_('активна'), default=True)
 
     class Meta:
-        ordering = '-name',
+        ordering = '-title',
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.title}'
 
 
-class Articles(IsActiveFalseMixin, models.Model):
+class Articles(IsActiveFalseMixin, SaveSlugMixin, models.Model):
+    slug = models.SlugField('URL', max_length=255, unique=True, db_index=True, primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='articles')
     topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='articles')
     title = models.CharField(_('заголовок'), max_length=64, db_index=True)
@@ -36,6 +51,9 @@ class Articles(IsActiveFalseMixin, models.Model):
 
     def __str__(self):
         return f'{self.Meta.verbose_name} {self.title}'
+
+    def get_absolute_url(self):
+        return reverse(viewname='articles:detail_article', kwargs={'pk': self.pk})
 
 
 class ArticleImages(IsActiveFalseMixin, models.Model):

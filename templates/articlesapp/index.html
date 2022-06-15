@@ -6,6 +6,6 @@
         <h3>{{ item.title }}</h3>
         <p>{{ item.body|truncatechars:50 }}</p>
         <span>{{ item.created_at }} #{{ item.topic.name }}</span><br>
-        <a href="{% url 'articles:detail_article' item.pk %}">Читать</a>
+        <a href="{{ item.get_absolute_url }}">Читать</a>
     {% endfor %}
 {% endblock %}
